@@ -32,6 +32,25 @@ Loredo_Jonan_R2_U1/
 - Se creó un repositorio local con `git init` y se subió a GitHub.
 - Se hicieron commits descriptivos por cada componente (HTML, CSS, JS e imagen).
 
-### 3. Configuración del servidor
+### 3. Configuración del servidor (Nginx)
 
-Pendiente de documentar.
+- Se eligió **Nginx 1.30.5** (versión estable para Windows), instalado en `C:\nginx`.
+- El paquete `Loredo_Jonan_R2_U1.zip` se extrajo en `C:\nginx\apps\tuapp`, simulando la subida al servidor.
+- Se editó `conf/nginx.conf` (copia en `server/nginx.conf`):
+  - **Puerto:** `listen 8080;` (se evitó el puerto 80 por posible uso de Apache/XAMPP).
+  - **Mapeo de directorios:** el bloque `location /tuapp/` apunta con `alias` a `C:/nginx/apps/tuapp/`.
+
+```nginx
+server {
+    listen       8080;
+    server_name  localhost;
+
+    location /tuapp/ {
+        alias C:/nginx/apps/tuapp/;
+        index index.html;
+    }
+}
+```
+
+- Comandos usados: `nginx -t` (validar configuración) y `start nginx` (arrancar).
+- La aplicación es accesible en **http://localhost:8080/tuapp/**.
